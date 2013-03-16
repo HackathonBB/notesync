@@ -8,7 +8,22 @@
 </head>
 <body>
 
-<%= yield %>
+	<div class="navbar">
+		<div class="navbar-inner">
+			<a class="brand" href="#">NoteSync</a>
+			<ul class="nav">
+				<li><a href="<%= lecture_create_path %>">create</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+
+		<%= yield %>
+
+		</div>
+
+	</div>
 
 </body>
 </html>
