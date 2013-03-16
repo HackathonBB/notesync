@@ -1,9 +1,10 @@
 Notesync::Application.routes.draw do
+
   get "lecture/create"
 
-  get "lecture/edit"
+  get "lecture/list"
 
-  match "lecture/edit/:note" => "lecture#edit", :as => "lecture_edit_id"
+  match "lecture/edit/:note" => "lecture#edit", :as => "lecture_edit"
 
   post "lecture/addParagraph"
 
@@ -69,6 +70,8 @@ Notesync::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
+
+  root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 

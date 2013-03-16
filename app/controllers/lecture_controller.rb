@@ -6,7 +6,7 @@ class LectureController < ApplicationController
     @note.name = "aaa"
     @note.save
 
-    redirect_to lecture_edit_id_path(@note)
+    redirect_to lecture_edit_path(@note)
   end
 
   def edit
@@ -17,6 +17,12 @@ class LectureController < ApplicationController
     if !@note
       redirect_to lecture_create_path()
     end
+  end
+
+  def list
+
+    @lectures = Lecture.all;
+
   end
 
   def addParagraph

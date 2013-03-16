@@ -1,0 +1,10 @@
+<div class="span8 offset2">
+<h2>Lectures:</h2>
+
+	<ul>
+		<% @lectures.each do |l| %>
+		<li><a href="<%= lecture_edit_path() %>"></a></li>
+		<% end %>
+	</ul>
+
+</div>
