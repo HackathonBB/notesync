@@ -1,2 +1,40 @@
-<h1>Lecture#view</h1>
-<p>Find me in app/views/lecture/view.html.erb</p>
+<script>
+var myNote = "<%= @mine.id %>";
+var otherNOtes = <%= @others.map { |x| x.id } %>;
+</script>
+
+<div class="row-fluid">
+		<div class="span6">
+			<div class="dropdown centerdrop">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="ddA">Mine</a>
+			</div>
+		</div>
+
+		<div class="span6">
+			<div class="dropdown centerdrop">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="ddB"></a>
+			</div>
+		</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span6">
+		<div class="pView" id="noteA">
+			<% @mine.paragraphs.each do |e| %>
+			<div class="row-fluid">
+				<div class="span1 dateMark">
+					<%= e.timestamp.strftime "%H:%M" %>
+				</div>
+				<div class="span11 pText">
+					<%= e.text %>
+				</div>
+			</div>
+			<% end %>
+		</div>
+	</div>
+
+	<div class="span6">
+		<div class="pView" id="noteB">
+		</div>
+	</div>
+</div>
