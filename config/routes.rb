@@ -38,6 +38,8 @@ Notesync::Application.routes.draw do
 
   get "paragraph/delete"
 
+  get "paragraph/between"
+
   get "paragraph/get"
 
   # The priority is based upon order of creation:

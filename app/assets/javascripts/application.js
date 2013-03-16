@@ -115,6 +115,22 @@ $(function() {
 				paragraphDeleted();
 			}
 		});
+
+		$(".dateMark").hover(
+			function(e) {
+				var sender = $(e.target);
+				var a = new Date(sender.attr('data-time'));
+				var b = new Date(date.getTime() + 5*60000);
+				sender.popover({
+					title: pad(a.getHours(),2) + ":" + pad(a.getMinutes(),2) + " - " + pad(b.getHours(),2) + ":" + pad(b.getMinutes(),2),
+					html: true,
+					content: "Loading..."
+				});
+
+				sender.popover("show");
+
+				$.get
+			});
 	}
 });
 

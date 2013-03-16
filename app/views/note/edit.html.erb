@@ -4,7 +4,7 @@
 		<div class="pView">
 			<% @note.paragraphs.each_with_index do |e, i| %>
 			<div class="row-fluid">
-				<div class="span1 dateMark">
+				<div class="span1 dateMark" data-time="<%= e.timestamp %>">
 					<% if i == 0 || 
 						(e.timestamp.min % 5 == 0 && @note.paragraphs[i - 1].timestamp.min != e.timestamp.min) ||
 						(@note.paragraphs[i - 1].timestamp.min - e.timestamp.min).abs > 5  %>
