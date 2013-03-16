@@ -1,5 +1,11 @@
 Notesync::Application.routes.draw do
 
+  post "user/create"
+
+  get "user/new"
+
+  post "user/logIn"
+
   match "note/edit/:note" => "note#edit", :as => "note_edit"
 
   get "note/view"

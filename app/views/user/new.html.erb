@@ -1,0 +1,19 @@
+
+
+<div class="span8 offset2">
+	<h2>Create new User</h2>
+	<%= form_for User.new, :url => {:action => "create"} do |f| %>
+		<%= f.text_field :nick, :placeholder => "Nick" %>
+		<%= f.password_field :password, :placeholder => "Password" %>
+		<br />
+		<%= f.submit "Create", :class => "btn btn-success btn-large" %>
+	<% end %>
+	<h2>Or log in</h2>
+	<%= form_for User.new, :url => {:action => "logIn"} do |f| %>
+		<%= f.text_field :nick, :placeholder => "Nick" %>
+		<%= f.password_field :password, :placeholder => "Password" %>
+		<br />
+		<%= f.submit "Log In", :class => "btn btn-success btn-large" %>
+	<% end %>
+</div>
+
