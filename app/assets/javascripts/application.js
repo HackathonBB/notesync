@@ -103,4 +103,86 @@ $(function(){
 });
 
 
+$(function() {
+	if($(".pView").length !== 0)
+	{
+		resize_pView(null);
+		$(window).resize(resize_pView);
+		$("#textbox").keydown(function(e) {
+			if(e.keyCode == 13 && $("#textbox").val().trim() !== "")
+			{
+				e.preventDefault();
+				paragraphCreated();
+			}
+			else if(e.keyCode == 8 && $("#textbox").val() === "")
+			{
+				e.preventDefault();
+				paragraphDeleted();
+			}
+		});
+	}
+});
 
+
+function resize_pView(e)
+{
+	var occupied = $(".navbar").height() + $(".taContainer").height();
+	var newSize = $(document).height() - occupied - 30;
+	$(".pView").height(newSize);
+}
+
+function generateParagraph(p)
+{
+	var pDiv = $("<div />",
+			{
+				class: "row-fluid"
+			});
+
+	var dateDiv = $("<div />",
+	{
+		class: "span1 dateMark"
+	});
+
+	var textDiv = $("<div />",
+	{
+		class: "span11 pText"
+	});
+
+	dateDiv.text(p.timestamp.getHours() + ":" + p.timestamp.getMinutes());
+	textDiv.html(p.text);
+
+	dateDiv.appendTo(pDiv);
+	textDiv.appendTo(pDiv);
+
+	return pDiv;
+}
+
+function paragraphCreated()
+{
+	var text = $("#textbox").val();
+	$("#textbox").val("");
+	var p = {};
+	p.text = text;
+	p.timestamp = new Date();
+
+	generateParagraph(p).appendTo('.pView');
+	$(".pView").animate(
+	{
+		scrollTop :$(".pView").height()
+	});
+
+	$.post("/lecture/addParagraph", p)
+		.fail(function() { console.log("Crap."); });
+}
+
+function paragraphDeleted()
+{
+	var last = $(".pView .row-fluid").last();
+
+	if(typeof last != 'undefined')
+	{
+		var text = last.children(".pText").html();
+		$("#textbox").val(text);
+		last.remove();
+	}
+}
