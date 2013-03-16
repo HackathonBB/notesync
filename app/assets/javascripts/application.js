@@ -135,6 +135,51 @@ $(function() {
 				paragraphDeleted();
 			}
 		});
+
+		$(".dateMark").hover(
+			function(e) {
+
+				var sender = $(e.target);
+
+				var d = sender.text().trim();
+				if(sender.text().trim().length === 0)
+					return;
+
+				var a = new Date(sender.attr('data-time'));
+				var b = new Date(a.getTime() + 5*60000);
+				var lecture = sender.attr('data-lecture');
+				sender.popover({
+					title: pad(a.getHours(),2) + ":" + pad(a.getMinutes(),2) + " - " + pad(b.getHours(),2) + ":" + pad(b.getMinutes(),2),
+					html: true,
+					content: "Loading..."
+				});
+
+				sender.popover("show");
+
+				$.get("/paragraph/between?lecture=" + lecture + "&a=" + (a.getTime() / 1000) + "&b=" + (b.getTime() / 1000), 
+					function(data)
+					{
+						var cont = "";
+						for (var i=0, pair; (pair=data[i]) && i <= 2; i++) 
+						{
+							if(i != 0)
+								cont += "<hr />";
+
+							cont += pair[0] + "<br />&nbsp;&nbsp;" + pair[1];
+							i++;
+						}
+
+						sender.popover("destroy");
+						sender.popover({
+							title: pad(a.getHours(),2) + ":" + pad(a.getMinutes(),2) + " - " + pad(b.getHours(),2) + ":" + pad(b.getMinutes(),2),
+						html: true,
+						content: cont});
+						sender.popover("show");
+					});
+			},
+			function (e) {
+				$(e.target).popover("destroy");
+			});
 	}
 });
 
@@ -209,7 +254,7 @@ function paragraphDeleted()
 	if(typeof last != 'undefined')
 	{
 		var text = last.children(".pText").html();
-		$("#textbox").val(text);
+		$("#textbox").val(text.trim());
 		last.remove();
 	}
 }
@@ -225,8 +270,12 @@ function loadNote(id, where)
 	var divName = "#note" + where;
 	$.get("/note/json/" + id)
 		.done(function(data) {
-			for(var p in data.paragraphs)
-				generateParagraph(p, p == data.paragraphs[0]).appendTo(divName);
+			$(divName).empty();
+			for (var i=0, p; p=data[i]; i++) 
+			{
+				p.timestamp = new Date(p.timestamp);
+				generateParagraph(p, i == 0).appendTo(divName);
+			}
 
 			$(divName).animate(	{
 				scrollTop : $(divName).height()
