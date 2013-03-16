@@ -1,4 +1,22 @@
 Notesync::Application.routes.draw do
+  get "lecture/create"
+
+  get "lecture/edit"
+
+  get "lecture/addParagraph"
+
+  get "lecture/view"
+
+  get "lecture/delete"
+
+  get "paragraph/modify"
+
+  get "paragraph/addLink"
+
+  get "paragraph/delete"
+
+  get "paragraph/get"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
