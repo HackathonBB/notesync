@@ -29,11 +29,13 @@ class LectureController < ApplicationController
 
   def view
     lecture = Lecture.get(params[:id])
-    logger.debug(lecture.inspect)
+    
     if lecture && lecture.notes.length > 0
       @mine = lecture.notes[0]
-      @others = lecture.notes.reduce({}).reduce do |acc, n|
-          acc[n.id] = n.id
+      logger.debug(lecture.notes.inspect)
+      @others = lecture.notes.reduce({}) do |acc, n|
+          acc[n.id] = n.user.nick
+          acc
         end 
     end
   end
