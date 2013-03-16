@@ -126,9 +126,10 @@ $(function() {
 
 function resize_pView(e)
 {
-	var occupied = $(".navbar").height() + $(".taContainer").height();
-	var newSize = $(document).height() - occupied - 30;
-	$(".pView").height(newSize);
+	var occupied = 22 + $(".taContainer").height();
+	var newSize = $(document).height() - occupied;
+	$(".pView").height(newSize-30);
+	$("#sidebar-documents-viewer").height(newSize);
 }
 
 function generateParagraph(p)
@@ -148,7 +149,7 @@ function generateParagraph(p)
 		class: "span11 pText"
 	});
 
-	dateDiv.text(p.timestamp.getHours() + ":" + p.timestamp.getMinutes());
+	dateDiv.text(pad(p.timestamp.getHours(),2) + ":" + pad(p.timestamp.getMinutes(),2));
 	textDiv.html(p.text);
 
 	dateDiv.appendTo(pDiv);
@@ -185,4 +186,10 @@ function paragraphDeleted()
 		$("#textbox").val(text);
 		last.remove();
 	}
+}
+
+function pad(num, size) {
+    var s = num+"";
+    while (s.length < size) s = "0" + s;
+    return s;
 }

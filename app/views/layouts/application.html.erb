@@ -9,17 +9,17 @@
 <body>
 
 	<div class="navbar">
-		<div class="navbar-inner">
+		<div class="navbar-inner navbar-fixed-top" style="border-radius: 0px;">
 			<a class="brand" href="#">NoteSync</a>
 			<ul class="nav">
 				<li><a href="<%= lecture_create_path %>">create</a></li>
 			</ul>
 		</div>
 	</div>
-	<div class="container-fluid">
+	<div class="container-fluid" style="padding-top: 22px;">
 		<div class="row-fluid">
 
-		<%= yield %>
+			<%= yield %>
 
 		</div>
 
