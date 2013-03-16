@@ -1,2 +1,14 @@
-<h1>Note#view</h1>
-<p>Find me in app/views/note/view.html.erb</p>
+<div class="offset1 span10">
+	<div class="pView">
+			<% @note.paragraphs.each do |e| %>
+			<div class="row-fluid">
+				<div class="span1 dateMark">
+					<%= e.timestamp.strftime "%H:%M" %>
+				</div>
+				<div class="span11 pText">
+					<%= e.text %>
+				</div>
+			</div>
+			<% end %>
+		</div>
+</div>

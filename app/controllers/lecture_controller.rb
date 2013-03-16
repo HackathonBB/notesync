@@ -20,20 +20,20 @@ class LectureController < ApplicationController
   end
 
   def list
-
     @lectures = Lecture.all;
-
   end
 
   def view
-    note = Note.get(params[:id])
-
-    if note
-      @mine = note
-      @others = Note.all
+    lecture = Lecture.get(params[:id])
+    logger.debug(lecture.inspect)
+    if lecture && lecture.notes.length > 0
+      @mine = lecture.notes[0]
+      @others = lecture.notes.reduce({}).reduce do |acc, n|
+          acc[n.id] = n.id
+        end 
     end
   end
-
+  
   def delete
   end
 end

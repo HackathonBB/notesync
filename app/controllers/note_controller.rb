@@ -1,8 +1,6 @@
 class NoteController < ApplicationController
   def edit
   	@note = Note.find(params[:note])
-    logger.debug(params[:note])
-    logger.debug(@note.inspect)
    
     if !@note
       redirect_to lecture_create_path()
@@ -10,12 +8,12 @@ class NoteController < ApplicationController
   end
 
   def view
-  	note = Note.get(params[:id])
+  	@note = Note.find(params[:note])
+  end
 
-    if note
-      @mine = note
-      @others = Note.all
-    end
+  def json
+    note = Note.get(params[:note])
+    render :json => note
   end
 
   def addParagraph
