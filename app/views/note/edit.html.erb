@@ -33,8 +33,10 @@
 
 <script>
 	var noteId = "<%= @note.id %>";
-	$(function(){
-		var docView = DocumentViewer($("#sidebar-documents-viewer"));
-		docView.loadPdf("<%= @note.lecture.docs.first.url %>");
-	});
+	<% if @note.lecture.docs.first %>
+		$(function(){
+			var docView = DocumentViewer($("#sidebar-documents-viewer"));
+			docView.loadPdf("<%= @note.lecture.docs.first.url %>");
+		});
+	<% end %>
 </script>
