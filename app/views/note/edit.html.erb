@@ -2,10 +2,14 @@
 
 	<div class="span12 mainColumn" id="mainColumn">
 		<div class="pView">
-			<% @note.paragraphs.each do |e| %>
+			<% @note.paragraphs.each_with_index do |e, i| %>
 			<div class="row-fluid">
 				<div class="span1 dateMark">
-					<%= e.timestamp.strftime "%H:%M" %>
+					<% if i == 0 || 
+						(e.timestamp.min % 5 == 0 && @note.paragraphs[i - 1].timestamp.min != e.timestamp.min) ||
+						(@note.paragraphs[i - 1].timestamp.min - e.timestamp.min).abs > 5  %>
+						<%= e.timestamp.strftime "%H:%M" %>
+					<% end %>
 				</div>
 				<div class="span11 pText">
 					<%= e.text %>

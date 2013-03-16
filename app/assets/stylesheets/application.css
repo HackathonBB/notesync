@@ -58,3 +58,10 @@
 	float: none;
 	margin: 0 auto;
 }
+
+.linkMenu {
+	box-shadow: 7px 7px 30px 2px #D9D9D9;
+	border: 1px;
+	z-index: 1;
+	position: absolute;
+}

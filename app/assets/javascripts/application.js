@@ -32,7 +32,7 @@ function DocumentViewer(container){
 		var container = $("<div />",{
 			class: "pdf-container"
 		}).appendTo(this.supercontainer);
-		
+	
 		for (var i = 1; i <= numPages; i++) {
 
 			pdf.getPage(i).then(function(page){
@@ -101,7 +101,7 @@ function DocumentViewer(container){
 $(function() {
 	if($(".pView").length !== 0)
 	{
-		resize_pView(null);
+		resize_pView();
 		$(window).resize(resize_pView);
 		$("#textbox").keydown(function(e) {
 			if(e.keyCode == 13 && $("#textbox").val().trim() !== "")
@@ -121,13 +121,14 @@ $(function() {
 
 function resize_pView(e)
 {
-	var occupied = 22 + $(".taContainer").height();
-	var newSize = $(document).height() - occupied;
+	var occupied = 40 + $(".taContainer").height();
+	var newSize = $(window).height() - occupied;
 	$(".pView").height(newSize-30);
 	$("#sidebar-documents-viewer").height(newSize);
 }
 
-function generateParagraph(p)
+var lastminuteLoaded = -1;
+function generateParagraph(p, isFirst)
 {
 	var pDiv = $("<div />",
 	{
@@ -136,7 +137,7 @@ function generateParagraph(p)
 
 	var dateDiv = $("<div />",
 	{
-		class: "span1 dateMark"
+		class: "span1 dateMark hdropdown"
 	});
 
 	var textDiv = $("<div />",
@@ -144,7 +145,14 @@ function generateParagraph(p)
 		class: "span11 pText"
 	});
 
-	dateDiv.text(pad(p.timestamp.getHours(),2) + ":" + pad(p.timestamp.getMinutes(),2));
+	if((p.timestamp.getMinutes() % 5 === 0  && lastminuteLoaded != p.timestamp.getMinutes()) || 
+		Math.abs(p.timestamp.getMinutes() - lastminuteLoaded) > 5 ||
+		isFirst)
+	{
+		lastminuteLoaded = p.timestamp.getMinutes();
+		dateDiv.text(pad(p.timestamp.getHours(),2) + ":" + pad(p.timestamp.getMinutes(),2));
+	}
+
 	textDiv.html(p.text);
 
 	dateDiv.appendTo(pDiv);
@@ -161,13 +169,13 @@ function paragraphCreated()
 	p.text = text;
 	p.timestamp = new Date();
 
-	generateParagraph(p).appendTo('.pView');
+	generateParagraph(p, $(".pView").children().length === 0).appendTo('.pView');
 	$(".pView").animate(
 	{
 		scrollTop :$(".pView").height()
 	});
 
-	$.post("/lecture/addParagraph", {
+	$.post("/note/addParagraph", {
 		id: noteId,
 		paragraph: p
 	})
@@ -198,7 +206,7 @@ function loadNote(id, where)
 	$.get("/note/json/" + id)
 		.done(function(data) {
 			for(var p in data.paragraphs)
-				generateParagraph(p).appendTo(divName);
+				generateParagraph(p, p == data.paragraphs[0]).appendTo(divName);
 
 			$(divName).animate(	{
 				scrollTop : $(divName).height()

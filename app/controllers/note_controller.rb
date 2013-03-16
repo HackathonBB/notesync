@@ -21,7 +21,7 @@ class NoteController < ApplicationController
 
     if note
       p = Paragraph.new
-      p.timestamp = Time.parse(params[:paragraph]["timestamp"])
+      p.timestamp = Time.parse(params[:paragraph]["timestamp"]) + 60 * 60
       p.text = params[:paragraph]["text"]
       p.save
       note.paragraphs << p
