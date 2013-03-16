@@ -10,12 +10,12 @@ class NoteController < ApplicationController
   end
 
   def view
-  	note = Note.get(params[:id])
+  	
+  end
 
-    if note
-      @mine = note
-      @others = Note.all
-    end
+  def json
+    note = Note.get(params[:note])
+    render :json => note
   end
 
   def addParagraph

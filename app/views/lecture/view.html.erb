@@ -1,18 +1,41 @@
 <script>
+<% if @mine %>
 var myNote = "<%= @mine.id %>";
-var otherNOtes = <%= @others.map { |x| x.id } %>;
+<% end %>
+var otherNotes = <%= @others %>;
+
+$(noteViewReady);
+
 </script>
 
 <div class="row-fluid">
 		<div class="span6">
 			<div class="dropdown centerdrop">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="ddA">Mine</a>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+    				<li><a href="#" class="dropitem" data-id="<%= @mine.id %>" data-where="A">Mine</a></li>
+    				<% @others.each do |key, value| %>
+    				<li><a href="#" class="dropitem" data-id="<%= @key %>" data-where="A"><%= value %></a></li>
+    				<% end %>
+  				</ul>
 			</div>
 		</div>
 
 		<div class="span6">
 			<div class="dropdown centerdrop">
-				<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="ddB"></a>
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="ddB">
+					<% if @others.length > 0 %>
+					<%= @others[0].id %>
+					<% else %>
+					No other notes
+					<% end %>
+				</a>
+				 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+    				<li><a href="#" class="dropitem" data-id="<%= @mine.id %>" data-where="B">Mine</a></li>
+    				<% @others.each do |key, value| %>
+    				<li><a href="#" class="dropitem" data-id="<%= @key %>" data-where="B"><%= value %></a></li>
+    				<% end %>
+  				</ul>
 			</div>
 		</div>
 </div>

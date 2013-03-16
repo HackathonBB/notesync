@@ -38,7 +38,7 @@ function DocumentViewer(container){
 			pdf.getPage(i).then(function(page){
 
 				var canvas = $("<canvas />",{
-						class: "pdf-canvas"
+					class: "pdf-canvas"
 				}).appendTo(container);
 
 				var viewport = page.getViewport(0.37);
@@ -68,7 +68,7 @@ function DocumentViewer(container){
 				
 
 				page.render(canvas[0].getContext('2d'));
-*/
+				*/
 			})
 
 		};
@@ -81,7 +81,7 @@ function DocumentViewer(container){
 		var loadedDocument = {};
 		loadedDocument.documentName = documentName;
 
-	    PDFJS.disableWorker = true;
+		PDFJS.disableWorker = true;
 
 		PDFJS.getDocument(documentName).then(function getPdfHelloWorld(pdf) {
 		//PDFJS.getPdf(documentName, function (data) {
@@ -135,9 +135,9 @@ function resize_pView(e)
 function generateParagraph(p)
 {
 	var pDiv = $("<div />",
-			{
-				class: "row-fluid"
-			});
+	{
+		class: "row-fluid"
+	});
 
 	var dateDiv = $("<div />",
 	{
@@ -173,10 +173,10 @@ function paragraphCreated()
 	});
 
 	$.post("/lecture/addParagraph", {
-			id: noteId,
-			paragraph: p
-		})
-		.fail(function() { console.log("Crap."); });
+		id: noteId,
+		paragraph: p
+	})
+	.fail(function() { console.log("Crap."); });
 }
 
 function paragraphDeleted()
@@ -192,7 +192,37 @@ function paragraphDeleted()
 }
 
 function pad(num, size) {
-    var s = num+"";
-    while (s.length < size) s = "0" + s;
-    return s;
+	var s = num+"";
+	while (s.length < size) s = "0" + s;
+	return s;
+}
+
+function loadNote(id, where)
+{
+	var divName = "#note" + where;
+	$.get("/note/json/" + id)
+		.done(function(data) {
+			for(var p in data.paragraphs)
+				generateParagraph(p).appendTo(divName);
+
+			$(divName).animate(	{
+				scrollTop : $(divName).height()
+			});
+		});
+}
+
+function noteViewReady() {
+	if(otherNotes.length > 0)
+	{
+		var id = otherNotes[0];
+		loadNote(id, "B");
+	}
+
+	$(".dropitem").click(function (e) {
+		var clicked = $(e.target);
+		var target = clicked.attr("data-where");
+		var note = clicked.attr("data-id");
+		$("#dd" + target).text(clicked.text());
+		loadNote(note, target);
+	});
 }

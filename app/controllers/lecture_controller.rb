@@ -20,9 +20,7 @@ class LectureController < ApplicationController
   end
 
   def list
-
     @lectures = Lecture.all;
-
   end
 
   def addParagraph
@@ -40,10 +38,12 @@ class LectureController < ApplicationController
 
   def view
     note = Note.get(params[:id])
-
+    logger.debug(note.inspect)
     if note
       @mine = note
-      @others = Note.all
+      @others = Note.all.reduce({}).reduce do |acc, n|
+          acc[n.id] = n.id
+        end 
     end
   end
 
