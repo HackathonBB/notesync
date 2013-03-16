@@ -54,6 +54,14 @@ class LectureController < ApplicationController
   end
 
   def addDocument
+    name =  self.id + "_photo." + upload.original_filename.split(".").last
+    directory = "public/images/products"
+    # create the file path
+    path = File.join(directory, name)
+    # write the file
+    File.open(path, "wb") { |f| f.write(upload.read) }
+    self.photo = File.join("/images/products", name);
+
   end
 
   def addNote
@@ -65,6 +73,7 @@ class LectureController < ApplicationController
     note = Note.new
     note.name = @user.nick
     note.user = @user
+    note.lecture = @lecture
     note.save
     @lecture.notes << note
     @lecture.save
