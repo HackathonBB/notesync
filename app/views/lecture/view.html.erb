@@ -8,8 +8,10 @@ $(noteViewReady);
 
 </script>
 
-	<div class="span12" style="min-height: 10px"></div>
+<div class="span12" style="min-height: 10px"></div>
 </div>
+
+<div class="linkMenu"></div>
 
 <div class="row-fluid">
 		<div class="span6">
@@ -47,10 +49,12 @@ $(noteViewReady);
 <div class="row-fluid">
 	<div class="span6">
 		<div class="pView" id="noteA">
-			<% @mine.paragraphs.each do |e| %>
+			<% @mine.paragraphs.each do |e, i| %>
 			<div class="row-fluid">
-				<div class="span1 dateMark">
-					<%= e.timestamp.strftime "%H:%M" %>
+				<div class="span1 dateMark hdropdown">
+					<% if i == 0 || e.timestamp.min % 5 == 0 %>
+						<%= e.timestamp.strftime "%H:%M" %>
+					<% end %>
 				</div>
 				<div class="span11 pText">
 					<%= e.text %>
