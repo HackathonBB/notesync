@@ -4,9 +4,15 @@
 		    	<h1>Welcome to NoteSync</h1>
 		    	<p>To start create or join a lecture and type in some notes</p>
 		    	<p>
-		    		<a class="btn btn-success btn-large" href="<%= lecture_create_path() %>">
-		    			Create Lecture
-		    		</a>
+		    		<% if @loggedIn %>
+			    		<a class="btn btn-success btn-large" href="<%= lecture_new_path() %>">
+			    			Create Lecture
+			    		</a>
+			    	<% else %>
+			    		<a class="btn btn-success btn-large" href="<%= user_new_path() %>">
+			    			Log In
+			    		</a>
+			    	<% end %>
 		    	</p>
 		    </div>
 	</div>

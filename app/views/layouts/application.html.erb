@@ -10,14 +10,21 @@
 
 	<div class="navbar">
 		<div class="navbar-inner navbar-fixed-top" style="border-radius: 0px;">
-			<a class="brand" href="#">NoteSync</a>
+			<a class="brand" href="/">NoteSync</a>
 			<ul class="nav">
 				<li><a href="<%= lecture_list_path %>">Lectures</a></li>
-				<li><a href="<%= lecture_create_path %>">Create</a></li>
+				<li><a href="<%= lecture_new_path %>">Create</a></li>
 			</ul>
+			<% if session[:user] %>
+				<a class="pull-right" href="<%= user_logout_path()%>" >logout</a>
+			<% end %>
 		</div>
 	</div>
+
 	<div class="container-fluid" style="padding-top: 22px;">
+		<% if flash[:error] %>
+			<div class="alert alert-error"><%= flash[:error] %></div>
+		<% end %>
 		<div class="row-fluid">
 
 			<%= yield %>
