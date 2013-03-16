@@ -1,5 +1,13 @@
 Notesync::Application.routes.draw do
 
+  match "note/edit/:note" => "note#edit", :as => "note_edit"
+
+  get "note/view"
+
+  post "note/addParagraph"
+
+  get "note/delete"
+
   get "lecture/create"
 
   get "lecture/list"
