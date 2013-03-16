@@ -33,6 +33,12 @@ class LectureController < ApplicationController
   end
 
   def view
+    note = Note.get(params[:id])
+
+    if note
+      @mine = note
+      @others = Note.all
+    end
   end
 
   def delete
