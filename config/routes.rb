@@ -32,6 +32,8 @@ Notesync::Application.routes.draw do
 
   post "lecture/addUser/:id" => "lecture#addUser", :as => "lecture_addUser"
 
+  match "lecture/addNote/:id" => "lecture#addNote", :as => "lecture_addNote"
+
   get "lecture/delete"
 
   get "paragraph/modify"

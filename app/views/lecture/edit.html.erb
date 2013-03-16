@@ -8,10 +8,11 @@
 		<ul>
 			<% @lecture.notes.each do |note| %>
 
-				<li><a href="<%= note_view_path(note)%>"><%= note.author %></a></li>
+				<li><a href="<%= note_view_path(note)%>"><%= note.user.nick %></a></li>
 
 			<% end %>
 		</ul>
+		<a class="btn btn-primary" href="<%= lecture_addNote_path(@lecture) %>">Create Note</a>
 	</div>
 	<div class="span4 well">
 		<h2>Documents</h2>

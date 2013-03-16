@@ -55,6 +55,21 @@ class LectureController < ApplicationController
 
   def addDocument
   end
+
+  def addNote
+    if @lecture.notes.any? { |n| n.user == @user }
+      flash[:error] = "You can only have one note"
+      redirect_to lecture_edit_path(@lecture)
+      return
+    end
+    note = Note.new
+    note.name = @user.nick
+    note.user = @user
+    note.save
+    @lecture.notes << note
+    @lecture.save
+    redirect_to note_edit_path(note)
+  end
   
   def delete
   end
