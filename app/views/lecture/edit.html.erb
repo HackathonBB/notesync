@@ -2,7 +2,16 @@
 
 	<div class="span12 mainColumn" id="mainColumn">
 		<div class="pView">
-			
+			<% @note.paragraphs.each do |e| %>
+			<div class="row-fluid">
+				<div class="span1 dateMark">
+					<%= e.timestamp.strftime "%H:%M" %>
+				</div>
+				<div class="span11 pText">
+					<%= e.text %>
+				</div>
+			</div>
+			<% end %>
 		</div>
 		<div class="row-fluid">
 			<div class="taContainer span8 fixedBottom">
@@ -17,3 +26,7 @@
 
 	</div>
 </div>
+
+<script>
+	var noteId = "<%= @note.id %>";
+</script>

@@ -3,7 +3,9 @@ Notesync::Application.routes.draw do
 
   get "lecture/edit"
 
-  get "lecture/addParagraph"
+  match "lecture/edit/:note" => "lecture#edit", :as => "lecture_edit_id"
+
+  post "lecture/addParagraph"
 
   get "lecture/view"
 
