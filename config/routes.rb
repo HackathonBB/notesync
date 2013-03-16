@@ -4,6 +4,8 @@ Notesync::Application.routes.draw do
 
   match "note/json/:note" => "note#json", :as => "note_json"
 
+  match "note/view/:note" => "note#view", :as => "note_view"
+
   get "note/view"
 
   post "note/addParagraph"

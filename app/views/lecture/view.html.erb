@@ -8,15 +8,18 @@ $(noteViewReady);
 
 </script>
 
+	<div class="span12" style="min-height: 10px"></div>
+</div>
+
 <div class="row-fluid">
 		<div class="span6">
 			<div class="dropdown centerdrop">
-				<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="ddA">Mine</a>
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="ddA">Mine<b class="caret"></b></a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-    				<li><a href="#" class="dropitem" data-id="<%= @mine.id %>" data-where="A">Mine</a></li>
+    				<li><a href="#" class="dropitem" data-id="<%= @mine.id if @mine %>" data-where="A">Mine</a></li>
     				<% @others.each do |key, value| %>
     				<li><a href="#" class="dropitem" data-id="<%= @key %>" data-where="A"><%= value %></a></li>
-    				<% end %>
+    				<% end if @others %>
   				</ul>
 			</div>
 		</div>
@@ -24,17 +27,18 @@ $(noteViewReady);
 		<div class="span6">
 			<div class="dropdown centerdrop">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="ddB">
-					<% if @others.length > 0 %>
+					<% if @others && @others.length > 0 %>
 					<%= @others[0].id %>
 					<% else %>
 					No other notes
 					<% end %>
+					<b class="caret"></b>
 				</a>
 				 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-    				<li><a href="#" class="dropitem" data-id="<%= @mine.id %>" data-where="B">Mine</a></li>
+    				<li><a href="#" class="dropitem" data-id="<%= @mine.id if @mine %>" data-where="B">Mine</a></li>
     				<% @others.each do |key, value| %>
     				<li><a href="#" class="dropitem" data-id="<%= @key %>" data-where="B"><%= value %></a></li>
-    				<% end %>
+    				<% end if @others %>
   				</ul>
 			</div>
 		</div>
@@ -52,7 +56,7 @@ $(noteViewReady);
 					<%= e.text %>
 				</div>
 			</div>
-			<% end %>
+			<% end if @mine %>
 		</div>
 	</div>
 

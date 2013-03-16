@@ -1,8 +1,6 @@
 class NoteController < ApplicationController
   def edit
   	@note = Note.find(params[:note])
-    logger.debug(params[:note])
-    logger.debug(@note.inspect)
    
     if !@note
       redirect_to lecture_create_path()
@@ -10,7 +8,7 @@ class NoteController < ApplicationController
   end
 
   def view
-  	
+  	@note = Note.find(params[:note])
   end
 
   def json
