@@ -6,7 +6,9 @@ gem 'rails', '3.2.11'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem "couchrest_model"
+
 gem 'less-rails-bootstrap', '>= 2.1.0'
+gem "jquery-ui-rails", "~> 4.0.1"
 gem 'therubyracer', :platforms => :ruby
 
 

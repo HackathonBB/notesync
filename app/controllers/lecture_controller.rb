@@ -54,14 +54,25 @@ class LectureController < ApplicationController
   end
 
   def addDocument
-    name =  self.id + "_photo." + upload.original_filename.split(".").last
-    directory = "public/images/products"
+
+    upload = params[:file]
+
+    name =  upload.original_filename.split(".")[-2..-1].join(".")
+    directory = "public/uploads/"+@lecture.id
     # create the file path
     path = File.join(directory, name)
     # write the file
+    
+    document = Doc.new
+    document.name = name
+    FileUtils.mkdir_p(directory)
     File.open(path, "wb") { |f| f.write(upload.read) }
-    self.photo = File.join("/images/products", name);
 
+    document.url = File.join("/uploads/"+@lecture.id, name); 
+    document.save
+    @lecture.docs << document
+    @lecture.save
+    redirect_to lecture_edit_path(@lecture)
   end
 
   def addNote

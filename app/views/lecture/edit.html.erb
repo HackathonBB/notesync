@@ -8,7 +8,11 @@
 		<ul>
 			<% @lecture.notes.each do |note| %>
 
-				<li><a href="<%= note_view_path(note)%>"><%= note.user.nick %></a></li>
+				<li><a href="<%= if note.user == @user 
+									note_edit_path(note) 
+								 else 
+								 	note_view_path(note) 
+								 end%>"><%= note.user.nick %></a></li>
 
 			<% end %>
 		</ul>
@@ -16,6 +20,18 @@
 	</div>
 	<div class="span4 well">
 		<h2>Documents</h2>
+		<ul>
+			<% @lecture.docs.each do |document| %>
+
+			<li><a href="<%= document.url %>"><%= document.name %></a></li>
+
+			<% end %>
+		</ul>
+		<%= form_for(Doc.new, :url=> lecture_addDocument_path(@lecture), :html => {  :enctype => "multipart/form-data" }) do |f| %>
+			<%= file_field_tag :file %>
+			<%= f.submit "upload" %>
+		<% end %>
+
 	</div>
 	<div class="span2 well">
 		<h2>Users</h2>

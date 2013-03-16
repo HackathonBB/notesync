@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.all
 //= require twitter/bootstrap
 //= require_tree .
 
@@ -40,6 +41,25 @@ function DocumentViewer(container){
 				var canvas = $("<canvas />",{
 					class: "pdf-canvas"
 				}).appendTo(container);
+
+				canvas.draggable(
+					{
+					    revert: false,
+					    zIndex: 2500,
+					    start: function(){
+					    	var offset = $(this).offset();
+					    	$(this).css("top",offset.y);
+					    	$(this).css("left",offset.x);
+					    	$(this).css("position", "absolute");
+					    },
+					    stop: function()
+					    {
+					    	$(this).css("position", "inherit");
+					        // need some way to check to see if this draggable has been dropped
+					        // successfully or not on an appropriate droppable...
+					        // I wish I could comment out my headache here like this too...
+					    }
+					});
 
 				var viewport = page.getViewport(0.37);
 

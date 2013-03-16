@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require twitter/bootstrap
+ *= require jquery.ui.all
  *= require_self
  *= require_tree .
  */
@@ -64,4 +65,8 @@
 	border: 1px;
 	z-index: 1;
 	position: absolute;
+}
+
+.pText:hover{
+	background-color: lightblue;
 }

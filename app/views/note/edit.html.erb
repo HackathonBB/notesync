@@ -35,6 +35,6 @@
 	var noteId = "<%= @note.id %>";
 	$(function(){
 		var docView = DocumentViewer($("#sidebar-documents-viewer"));
-		docView.loadPdf("/pdfs/example.pdf");
+		docView.loadPdf("<%= @note.lecture.docs.first.url %>");
 	});
 </script>
