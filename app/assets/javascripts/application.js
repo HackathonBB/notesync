@@ -84,7 +84,10 @@ function paragraphCreated()
 		scrollTop :$(".pView").height()
 	});
 
-	$.post("/lecture/addParagraph", p)
+	$.post("/lecture/addParagraph", {
+			id: noteId,
+			paragraph: p
+		})
 		.fail(function() { console.log("Crap."); });
 }
 
