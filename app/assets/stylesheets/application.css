@@ -38,6 +38,7 @@
 
 .pView {
 	overflow: scroll;
+	padding-top: 20px;
 }
 
 .dateMark {
