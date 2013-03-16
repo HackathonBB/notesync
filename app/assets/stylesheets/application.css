@@ -16,3 +16,25 @@
  .noresize {
  	resize: none 
  }
+
+.fixedBottom {
+	position: fixed;
+	bottom: 0;
+}
+
+.pView {
+	overflow: scroll;
+}
+
+.dateMark {
+	color: #BFBFBF;
+}
+
+.pText {
+	color: #4D4D4D;
+}
+
+.mainColumn {
+	vertical-align: text-bottom;
+	height: 100%;
+}
