@@ -2,20 +2,20 @@ require 'Time'
 
 class LectureController < ApplicationController
   def create
-    @note = Note.new
-    @note.name = "aaa"
-    @note.save
+    newLecture = Lecture.new
+    newLecture.name = params[:lecture][:name]
+    newLecture.save
+    redirect_to lecture_edit_path(newLecture)
+  end
 
-    redirect_to lecture_edit_path(@note)
+  def new
   end
 
   def edit
-    @note = Note.find(params[:note])
-    logger.debug(params[:note])
-    logger.debug(@note.inspect)
-   
-    if !@note
-      redirect_to lecture_create_path()
+    @lecture = Lecture.find(params[:id])
+    if !@lecture
+      redirect_to lecture_new_path()
+      return
     end
   end
 
@@ -23,19 +23,6 @@ class LectureController < ApplicationController
 
     @lectures = Lecture.all;
 
-  end
-
-  def addParagraph
-    note = Note.get(params[:id])
-
-    if note
-      p = Paragraph.new
-      p.timestamp = Time.parse(params[:paragraph]["timestamp"])
-      p.text = params[:paragraph]["text"]
-      p.save
-      note.paragraphs << p
-      note.save
-    end
   end
 
   def view

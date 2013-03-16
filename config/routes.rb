@@ -8,11 +8,15 @@ Notesync::Application.routes.draw do
 
   get "note/delete"
 
-  get "lecture/create"
+  post "lecture/create"
+
+  get "lecture/new"
 
   get "lecture/list"
 
-  get "lecture/view"
+  match "lecture/view/:id" => "lecture#view", :as => "lecture_view"
+
+  match "lecture/edit/:id" => "lecture#edit", :as => "lecture_edit"
 
   get "lecture/delete"
 

@@ -1,0 +1,9 @@
+
+<div class="span8 offset2">
+	<h2>Creating new Lecture</h2>
+	<%= form_for Lecture.new, :url => {:action => "create"} do |f| %>
+		<%= f.text_field :name, :placeholder => "Name" %>
+		<br />
+		<%= f.submit "Create", :class => "btn btn-success btn-large" %>
+	<% end %>
+</div>

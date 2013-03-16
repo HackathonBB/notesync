@@ -97,11 +97,6 @@ function DocumentViewer(container){
 
 }
 
-$(function(){
-	var docView = DocumentViewer($("#sidebar-documents-viewer"));
-	docView.loadPdf("/pdfs/example.pdf");
-});
-
 
 $(function() {
 	if($(".pView").length !== 0)

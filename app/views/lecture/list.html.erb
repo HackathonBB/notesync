@@ -3,8 +3,11 @@
 
 	<ul>
 		<% @lectures.each do |l| %>
-		<li><a href="<%= lecture_edit_path() %>"></a></li>
+		<li><a href="<%= lecture_edit_path(l) %>"><%= l.name %></a></li>
 		<% end %>
 	</ul>
+
+	<a href="<%= lecture_new_path() %>" class="btn btn-success">Create new Lecture</a>
+
 
 </div>
